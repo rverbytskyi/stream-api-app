@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useCallback} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -13,8 +13,10 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   useColorScheme,
   View,
+  Dimensions,
 } from 'react-native';
 
 import {
@@ -24,6 +26,9 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import HTTPStream from './modules/HTTPStream';
+
+const {width} = Dimensions.get('window');
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -62,6 +67,12 @@ function App(): JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const onPress = useCallback(async () => {
+    const asd = await HTTPStream.createHTTPStream();
+
+    console.log(asd);
+  }, []);
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -89,6 +100,9 @@ function App(): JSX.Element {
           <Section title="Learn More">
             Read the docs to discover what to do next:
           </Section>
+          <TouchableOpacity style={styles.button} onPress={onPress}>
+            <Text style={styles.label}>Ask openAI</Text>
+          </TouchableOpacity>
           <LearnMoreLinks />
         </View>
       </ScrollView>
@@ -112,6 +126,19 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: '700',
+  },
+  button: {
+    backgroundColor: Colors.black,
+    width: width - 36,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    alignSelf: 'center',
+  },
+  label: {
+    color: Colors.white,
+    fontSize: 16,
   },
 });
 
