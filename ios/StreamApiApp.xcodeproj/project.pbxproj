@@ -14,6 +14,10 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-StreamApiApp-StreamApiAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-StreamApiApp-StreamApiAppTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		CE4509C729DBBC11004E0B29 /* HTTPStream.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4509C629DBBC11004E0B29 /* HTTPStream.m */; };
+		CE4509C829DBBC11004E0B29 /* HTTPStream.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4509C629DBBC11004E0B29 /* HTTPStream.m */; };
+		CE4509CB29DBBC4E004E0B29 /* RCTHTTPStreamModule.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4509CA29DBBC4E004E0B29 /* RCTHTTPStreamModule.m */; };
+		CE4509CC29DBBC4E004E0B29 /* RCTHTTPStreamModule.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4509CA29DBBC4E004E0B29 /* RCTHTTPStreamModule.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +47,10 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-StreamApiApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StreamApiApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = StreamApiApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-StreamApiApp-StreamApiAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamApiApp-StreamApiAppTests.release.xcconfig"; path = "Target Support Files/Pods-StreamApiApp-StreamApiAppTests/Pods-StreamApiApp-StreamApiAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		CE4509C529DBBBF4004E0B29 /* HTTPStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTTPStream.h; sourceTree = "<group>"; };
+		CE4509C629DBBC11004E0B29 /* HTTPStream.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTTPStream.m; sourceTree = "<group>"; };
+		CE4509C929DBBC2F004E0B29 /* RCTHTTPStreamModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTHTTPStreamModule.h; sourceTree = "<group>"; };
+		CE4509CA29DBBC4E004E0B29 /* RCTHTTPStreamModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTHTTPStreamModule.m; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -86,6 +94,7 @@
 		13B07FAE1A68108700A75B9A /* StreamApiApp */ = {
 			isa = PBXGroup;
 			children = (
+				CE4509C429DBBBDB004E0B29 /* StreamModule */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -146,6 +155,17 @@
 				89C6BE57DB24E9ADA2F236DE /* Pods-StreamApiApp-StreamApiAppTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		CE4509C429DBBBDB004E0B29 /* StreamModule */ = {
+			isa = PBXGroup;
+			children = (
+				CE4509C529DBBBF4004E0B29 /* HTTPStream.h */,
+				CE4509C629DBBC11004E0B29 /* HTTPStream.m */,
+				CE4509C929DBBC2F004E0B29 /* RCTHTTPStreamModule.h */,
+				CE4509CA29DBBC4E004E0B29 /* RCTHTTPStreamModule.m */,
+			);
+			path = StreamModule;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -405,6 +425,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				00E356F31AD99517003FC87E /* StreamApiAppTests.m in Sources */,
+				CE4509C829DBBC11004E0B29 /* HTTPStream.m in Sources */,
+				CE4509CC29DBBC4E004E0B29 /* RCTHTTPStreamModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,7 +435,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				CE4509C729DBBC11004E0B29 /* HTTPStream.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				CE4509CB29DBBC4E004E0B29 /* RCTHTTPStreamModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
