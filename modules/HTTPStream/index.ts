@@ -1,7 +1,7 @@
-import {NativeModules} from 'react-native';
+import { NativeModules } from 'react-native';
 import _ from 'lodash';
 
-const {HTTPStreamModule} = NativeModules;
+const { HTTPStreamModule } = NativeModules;
 
 type EventsNames = {
   RECEIVED_DATA_CHUNK: string;
@@ -27,7 +27,7 @@ type RequestData = {
 
 const requestData = (
   streamId: string,
-  {body, headers, method, urlString}: RequestData,
+  { body, headers, method, urlString }: RequestData,
 ): void => {
   HTTPStreamModule.request(streamId, urlString, method, headers, body);
 };
@@ -39,12 +39,10 @@ const createHTTPStream = async () => {
     streamId,
   );
 
-  console.log('eventsNames', eventsNames);
-
   return {
-    streamId,
     eventsNames,
     requestData,
+    streamId,
   };
 };
 

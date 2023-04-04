@@ -1,0 +1,51 @@
+{
+  "root": true,
+  "extends": "@react-native-community",
+  "plugins": ["react-native"],
+  "rules": {
+    "object-shorthand": ["off", "always"],
+    "no-lone-blocks": 2,
+    "@typescript-eslint/ban-types": 0,
+    "react/jsx-boolean-value": 0,
+    "no-nested-ternary": 1,
+    "no-multi-spaces": 1,
+    "no-unused-vars": 0,
+    "react/no-unused-prop-types": 0,
+    "react/prop-types": 0,
+    "react/jsx-sort-props": 1,
+    "sort-keys": 1,
+    "react-native/no-inline-styles": 1,
+    "react/jsx-curly-brace-presence": [
+      "error",
+      {
+        "props": "never"
+      }
+    ],
+    "@typescript-eslint/no-explicit-any": 1,
+    "@typescript-eslint/no-non-null-assertion": 2,
+    "@typescript-eslint/no-unused-vars": 0,
+    "@typescript-eslint/no-use-before-define": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "padding-line-between-statements": [
+      "warn",
+      { "blankLine": "always", "prev": "*", "next": "const" },
+      { "blankLine": "always", "prev": "*", "next": "let" },
+      { "blankLine": "always", "prev": "*", "next": "return" },
+      { "blankLine": "always", "prev": "*", "next": "if" },
+      { "blankLine": "always", "prev": "*", "next": "expression" },
+      { "blankLine": "always", "prev": "*", "next": "switch" }
+    ],
+    "curly": ["warn", "all"],
+    "no-console": 1
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "legacyDecorators": true,
+      "experimentalObjectRestSpread": true
+    }
+  }
+}
