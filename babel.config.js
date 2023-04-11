@@ -8,6 +8,7 @@ module.exports = {
       {
         alias: {
           api: './src/api',
+          containers: './src/containers',
           hooks: './src/hooks',
           modules: './modules',
           routes: './src/routes',

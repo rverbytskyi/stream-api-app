@@ -9,7 +9,7 @@
     "baseUrl": "./",
     "paths": {
       "*": ["src/*"],
-      "modules/*": ["modules/**/*"],
+      "modules/*": ["modules/*"],
     },
     "checkJs": false,
     "skipLibCheck": true,

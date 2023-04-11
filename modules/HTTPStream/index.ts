@@ -8,7 +8,7 @@ type EventsNames = {
   TRANSFER_DATA_FINISHED: string;
 };
 
-type RequestData = {
+export type RequestData = {
   urlString: string;
   method:
     | 'GET'
