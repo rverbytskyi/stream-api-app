@@ -10,10 +10,10 @@
 #import "HTTPStream.h"
 
 NSString *receivedDataChunkEventKey = @"RECEIVED_DATA_CHUNK";
-NSString *receivedDataChunkEventName = @"receivedDataChunk";
+NSString *receivedDataChunkEvent = @"receivedDataChunk";
 
 NSString *transferDataFinishedEventKey = @"TRANSFER_DATA_FINISHED";
-NSString *transferDataFinishedEventName = @"transferDataFinished";
+NSString *transferDataFinishedEvent = @"transferDataFinished";
 
 // Bearer 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
 
@@ -24,38 +24,31 @@ NSString *transferDataFinishedEventName = @"transferDataFinished";
 
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(request:(NSString *)requestId urlString:(NSString *)urlString method:(NSString *)method headers:(NSDictionary *)headers body:(NSDictionary *)body)
++(BOOL)requiresMainQueueSetup {
+  return NO;
+}
+
+-(NSDictionary *)constantsToExport
 {
-  HTTPStream *stream = [[HTTPStream alloc] initWithUrlString:urlString method:method headers:headers];
-  
-  NSDictionary *eventsNames = [self getEventsNames:requestId];
-  
-  NSData *bodyData = [self getBody:body];
-  
-  if (bodyData != nil) {
-    [stream.request setHTTPBody:bodyData];
-  }
-  
-  NSURLSessionDataTask *dataTask = [stream.session dataTaskWithRequest:stream.request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-    NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+ return @{
+   receivedDataChunkEventKey: receivedDataChunkEvent,
+   transferDataFinishedEventKey: transferDataFinishedEvent,
+ };
+}
+
+RCT_EXPORT_METHOD(request:(NSString *)streamId urlString:(NSString *)urlString method:(NSString *)method headers:(NSDictionary *)headers body:(NSDictionary *)body)
+{
+  HTTPStream *stream = [[HTTPStream alloc] initWithUrlString:urlString method:method headers:headers body:body onDataChunkReceived:^(NSString *dataString) {
+    NSDictionary *data = @{@"dataString": dataString, @"streamId": streamId};
     
-    if (error) {
-      [self receivedData:[eventsNames objectForKey:transferDataFinishedEventKey] data:dataString];
-    } else {
-      NSLog(@"Response: %@", data);
-      
-      [self receivedData:[eventsNames objectForKey:receivedDataChunkEventKey] data:dataString];
-      
-      NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-      if (httpResponse.statusCode != 200) {
-        [self receivedData:[eventsNames objectForKey:transferDataFinishedEventKey] data:dataString];
-        
-        [dataTask cancel];
-      }
-    }
+    [self receivedData:receivedDataChunkEvent data:data];
+  } onDataTransferFinished:^(NSString *errorString) {
+    NSDictionary *data = @{@"errorString": errorString, @"streamId": streamId};
+    
+    [self receivedData:transferDataFinishedEvent data:data];
   }];
   
-  [dataTask resume];
+  [stream makeRequest];
 }
 
 -(NSData *)getBody:(NSDictionary *)body
@@ -77,25 +70,6 @@ RCT_EXPORT_METHOD(request:(NSString *)requestId urlString:(NSString *)urlString 
   }
 }
 
-RCT_EXPORT_METHOD(getEventsNames:(NSString *)requestId resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject)
-{
-  NSDictionary *events = [self getEventsNames:requestId];
-  
-  resolve(events);
-}
-
--(NSDictionary *)getEventsNames:(NSString *)requestId
-{
-  NSString *customReceivedDataChunkEventName = [self getEventName:receivedDataChunkEventName requestId:requestId];
-  NSString *customTransferDataFinishedEventName = [self getEventName:transferDataFinishedEventName requestId:requestId];
-  
-  return @{
-    receivedDataChunkEventKey: customReceivedDataChunkEventName,
-    transferDataFinishedEventKey: customTransferDataFinishedEventName
-  };
-}
-
 // Will be called when this module's first listener is added.
 -(void)startObserving {
   hasListeners = YES;
@@ -108,21 +82,16 @@ RCT_EXPORT_METHOD(getEventsNames:(NSString *)requestId resolver:(RCTPromiseResol
   // Remove upstream listeners, stop unnecessary background tasks
 }
 
--(NSString *)getEventName:(NSString *)eventType requestId:(NSString *)requestId
-{
-  return [NSString stringWithFormat:@"%@_%@", eventType, requestId];
-}
-
-- (void)receivedData:(NSString *)eventName data:(NSString *)data
+- (void)receivedData:(NSString *)eventName data:(NSDictionary *)data
 {
   if (hasListeners) {
-    [self sendEventWithName:eventName body:@{@"data": data}];
+    [self sendEventWithName:eventName body:data];
   }
 }
 
 // It is needed to overwrite "supportedEvents" method, even though returned events names are not corresponding to the actual ones since they are dynamic
 - (NSArray<NSString *> *)supportedEvents {
-    return @[@"Placeholder"];
+    return @[receivedDataChunkEvent, transferDataFinishedEvent];
 }
 
 - (dispatch_queue_t)methodQueue

@@ -1,11 +1,18 @@
 import { createAction } from '@reduxjs/toolkit';
-import { RequestData } from 'modules/HTTPStream';
+import { StreamApiPostMessageData } from 'typings';
 
-const streamRequested = createAction<RequestData>('streamApi/streamRequested');
+const streamRequested = createAction<StreamApiPostMessageData>(
+  'streamApi/streamRequested',
+);
 
 const streamSucceeded = createAction('streamApi/streamSucceeded');
 
+const streamDataChunkReceived = createAction<string>(
+  'streamApi/streamDataChunkReceived',
+);
+
 export default {
+  streamDataChunkReceived,
   streamRequested,
   streamSucceeded,
 };

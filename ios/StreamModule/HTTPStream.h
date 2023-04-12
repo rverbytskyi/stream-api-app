@@ -5,18 +5,18 @@
 //  Created by Roman Verbytskyi on 04.04.2023.
 //
 
-@interface HTTPStream : NSObject
+@interface HTTPStream : NSObject<NSURLSessionDataDelegate>
 
-@property (nonatomic, strong) NSURL *url;
+-(instancetype)initWithUrlString:(NSString *)urlString method:(NSString *)method headers:(NSDictionary *)headers body:(NSDictionary *)body onDataChunkReceived:(void (^)(NSString *data))onDataChunkReceived onDataTransferFinished:(void (^)(NSString *errorString))onDataTransferFinished;
 
-@property (nonatomic, strong) NSMutableURLRequest *request;
-
-@property (nonatomic, strong) NSURLSessionConfiguration *sessionConfig;
-
-@property (nonatomic, strong) NSURLSession *session;
+- (void)makeRequest;
 
 @property (nonatomic, strong) NSURLSessionDataTask *dataTask;
 
--(instancetype)initWithUrlString:(NSString *)urlString method:(NSString *)method headers:(NSDictionary *)headers;
+@property (nonatomic, strong) NSURLSession *session;
+
+@property (nonatomic, copy) void (^onDataChunkReceived)(NSString *data);
+
+@property (nonatomic, copy) void (^onDataTransferFinished)(NSString *errorString);
 
 @end

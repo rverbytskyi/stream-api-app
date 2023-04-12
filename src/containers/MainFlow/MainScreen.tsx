@@ -20,6 +20,8 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import HTTPStream from 'modules/HTTPStream';
+import { useDispatch } from 'react-redux';
+import actions from 'state/actions';
 
 const { width } = Dimensions.get('window');
 
@@ -59,15 +61,19 @@ function Section({ children, title }: SectionProps): JSX.Element {
 export function MainScreen(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
+  const dispatch = useDispatch();
+
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const onPress = useCallback(async () => {
-    const asd = await HTTPStream.createHTTPStream();
-
-    console.log(asd);
-  }, []);
+  const onPress = useCallback(() => {
+    dispatch(
+      actions.streamApi.streamRequested({
+        prompt: 'Tell a story about the Alice in a Wonderland',
+      }),
+    );
+  }, [dispatch]);
 
   return (
     <SafeAreaView style={backgroundStyle}>
