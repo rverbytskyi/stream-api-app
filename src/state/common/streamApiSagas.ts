@@ -72,10 +72,10 @@ function* sendDataRequest(
 
     const data = getDataFromStreamResponseString(eventData?.dataString || '{}');
 
-    // console.log(data?.choices?.[0]?.text);
+    console.log(data);
 
     if (data?.choices?.[0]?.text === undefined) {
-      console.log(eventData);
+      console.log('text === undefined', eventData);
     }
   }
 }

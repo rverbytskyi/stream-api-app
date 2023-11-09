@@ -6,6 +6,7 @@ const EMPTY_OBJ = {};
 export const getDataFromStreamResponseString = (
   dataString: DataChunk['dataString'],
 ): StreamApiDataChunk | DeepPartial<StreamApiDataChunk> => {
+  console.log('data_string', dataString)
   try {
     const jsonString = dataString.replace(/^data:/g, '');
 

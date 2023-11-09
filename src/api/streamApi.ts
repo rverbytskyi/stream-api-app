@@ -2,7 +2,7 @@ import { RequestData } from 'modules/HTTPStream';
 import { StreamApiPostMessageData } from 'typings';
 
 const HEADERS = {
-  Authorization: 'Bearer your-key',
+  Authorization: 'Bearer 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',
   'Content-Type': 'application/json',
 };
 

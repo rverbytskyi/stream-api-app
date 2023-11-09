@@ -11,17 +11,7 @@ export enum EventsKeys {
 
 export type RequestData = {
   urlString: string;
-  method:
-    | 'GET'
-    | 'DELETE'
-    | 'HEAD'
-    | 'OPTIONS'
-    | 'POST'
-    | 'PUT'
-    | 'PATCH'
-    | 'PURGE'
-    | 'LINK'
-    | 'UNLINK';
+  method: 'GET' | 'DELETE' | 'HEAD' | 'POST' | 'PUT' | 'PATCH';
   headers: Record<string, any>;
   body?: Object;
 };
